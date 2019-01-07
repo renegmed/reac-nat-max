@@ -15,12 +15,27 @@ const instructions = Platform.select({
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
-
-type Props = {};
-export default class App extends Component<Props> {
+ 
+export default class App extends Component  {
 
   state = {
-    placeName: ''
+    placeName: '',
+    places: []
+  }
+
+  placeSubmitHandler = () => {
+    //alert("place submit handler " + this.state.placeName.trim())
+    if (this.state.placeName.trim() === "") {
+      return;
+    }
+
+    this.setState( prevState => {  
+      return {
+        places: prevState.places.concat(prevState.placeName),
+        placeName: ''
+      }
+    })
+   
   }
 
   placeNameChangedHandler = val => {
@@ -28,7 +43,12 @@ export default class App extends Component<Props> {
       placeName: val
     })
   }
-  render() {
+  render() { 
+
+    const placesOutput = this.state.places.map( ( place, i ) => {
+      <Text key={i}>{place}</Text>
+    })
+
     return (
       <View style={styles.container}> 
         <View style={styles.inputContainer}>
@@ -38,7 +58,14 @@ export default class App extends Component<Props> {
             value={this.state.placeName}
             onChangeText={this.placeNameChangedHandler}
           /> 
-          <Button title="Add" style={styles.placeButton}/>  
+          <Button title="Add" 
+            style={styles.placeButton}
+            onPress={this.placeSubmitHandler}
+            />  
+        </View>
+
+        <View> 
+          {placesOutput} 
         </View>
        
       </View>
@@ -66,5 +93,8 @@ const styles = StyleSheet.create({
   },
   placeButton: {
     width: "30%"
+  }, 
+  listContainer: {
+    width: "100%"
   } 
 });
