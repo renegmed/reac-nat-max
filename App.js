@@ -33,7 +33,9 @@ export default class App extends Component  {
 
     const placesOutput = this.state.places.map( ( place, i ) => {
       return (
-        <ListItem key={i} placeName={place} />
+        <ListItem key={i} 
+          placeName={place} 
+          onItemPressed={ () => alert("Item press - ID " + i)}/>
       );
     }) 
 
