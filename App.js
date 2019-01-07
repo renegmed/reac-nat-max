@@ -11,6 +11,9 @@ export default class App extends Component  {
   }
  
   placeAddedHandler = placeName => {
+
+    //alert(placeName);
+
     this.setState(prevState => {
       return {
         places: prevState.places.concat({
@@ -42,10 +45,11 @@ export default class App extends Component  {
       }
     });
   }
-
-  onItemDeleted
+ 
   render() { 
  
+   
+
     return (
       <View style={styles.container}> 
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
