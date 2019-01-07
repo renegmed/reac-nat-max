@@ -18,7 +18,7 @@ export default class App extends Component  {
       return {
         places: prevState.places.concat({
           key: Math.floor((Math.random() * 1000000) + 1),
-          name: placeName,
+          value: placeName,
         })
       };
     });
@@ -36,20 +36,17 @@ export default class App extends Component  {
     });
   };
 
-  placeDeletedHandler = index => {
+  placeDeletedHandler = key => {
     this.setState( prevState => {
       return  {
         places: prevState.places.filter( place => { 
-          return place.key !== index;
+          return place.key !== key;
         })
       }
     });
   }
  
-  render() { 
- 
-   
-
+  render() {  
     return (
       <View style={styles.container}> 
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
