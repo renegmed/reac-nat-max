@@ -1,21 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, View, TextInput, Button} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
- 
+import ListItem from './src/components/ListItem/ListItem';
+
 export default class App extends Component  {
 
   state = {
@@ -23,8 +10,7 @@ export default class App extends Component  {
     places: []
   }
 
-  placeSubmitHandler = () => {
-    //alert("place submit handler " + this.state.placeName.trim())
+  placeSubmitHandler = () => { 
     if (this.state.placeName.trim() === "") {
       return;
     }
@@ -40,14 +26,16 @@ export default class App extends Component  {
 
   placeNameChangedHandler = val => {
     this.setState({
-      placeName: val
+      placeName: val 
     })
   }
   render() { 
 
     const placesOutput = this.state.places.map( ( place, i ) => {
-      <Text key={i}>{place}</Text>
-    })
+      return (
+        <ListItem key={i} placeName={place} />
+      );
+    }) 
 
     return (
       <View style={styles.container}> 
@@ -64,7 +52,7 @@ export default class App extends Component  {
             />  
         </View>
 
-        <View> 
+        <View style={styles.listContainer}> 
           {placesOutput} 
         </View>
        
