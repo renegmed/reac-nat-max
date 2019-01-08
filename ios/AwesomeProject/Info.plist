@@ -4,7 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Ionicons.tff</string>
+		<string>Ionicons.ttf</string>
 	</array>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
