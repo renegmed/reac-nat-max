@@ -1,8 +1,21 @@
  
 import { Navigation } from 'react-native-navigation';  
 import constant from './constants';  
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export function pushAuth() {
+export async function pushAuth() {
+    // Promise.all([
+    //     Icon.getImageSource("md-map", 30),
+    //     Icon.getImageSource("ios-share-alt", 30),
+    //     Icon.getImageSource("ios-share-alt", 30),
+    // ]).then(sources => {
+    //     // ......
+    // })
+    
+    const auth_image = await Icon.getImageSource("md-log-in", 30);
+    const find_place_image = await Icon.getImageSource("md-map", 30);
+    const share_place_image = await Icon.getImageSource("ios-share-alt", 30);
+
     Navigation.setRoot({
         root: {
             bottomTabs: {
@@ -25,8 +38,8 @@ export function pushAuth() {
                                             },
                                             bottomTab: {
                                                 text: 'Login',
-                                                icon: require('./images/one.png'),
-                                                selectedIcon: require('./images/one.png'),
+                                                icon: auth_image,
+                                                selectedIcon: auth_image,
                                             }
                                         }
                                     }
@@ -56,7 +69,7 @@ export function pushAuth() {
                                         }, 
                                             bottomTab: {
                                                 text: 'Find Place',
-                                                icon: require('./images/two.png') 
+                                                icon: find_place_image 
                                             }
                                         } 
                                     }
@@ -81,7 +94,7 @@ export function pushAuth() {
                                             },
                                             bottomTab: {
                                                 text: 'Share Place',
-                                                icon: require('./images/three.png'), 
+                                                icon: share_place_image, 
                                             }
                                         }
                                     }
