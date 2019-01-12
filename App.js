@@ -25,7 +25,9 @@ function WrappedComponent(Component) {
 }
 
 function registerScreens() { 
-    Navigation.registerComponent(constant.AUTH_SCREEN, () => WrappedComponent(require('./src/screens/Auth/Auth').default)); 
+    Navigation.registerComponent(constant.AUTH_SCREEN, () => WrappedComponent(require('./src/screens/Auth/Auth').default));  
+    Navigation.registerComponent(constant.SHARE_PLACE_SCREEN, () => WrappedComponent(require('./src/screens/SharePlace/SharePlace').default)); 
+    Navigation.registerComponent(constant.FIND_PLACE_SCREEN, () => WrappedComponent(require('./src/screens/FindPlace/FindPlace').default));     
 }
 
 export function start () { 
