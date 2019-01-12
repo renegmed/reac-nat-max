@@ -4,14 +4,7 @@ import constant from './constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export async function pushAuth() {
-    // Promise.all([
-    //     Icon.getImageSource("md-map", 30),
-    //     Icon.getImageSource("ios-share-alt", 30),
-    //     Icon.getImageSource("ios-share-alt", 30),
-    // ]).then(sources => {
-    //     // ......
-    // })
-    
+  
     const auth_image = await Icon.getImageSource("md-log-in", 30);
     const find_place_image = await Icon.getImageSource("md-map", 30);
     const share_place_image = await Icon.getImageSource("ios-share-alt", 30);
