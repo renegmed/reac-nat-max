@@ -15,6 +15,8 @@ export function registerScreens() {
         constant.SHARE_PLACE_SCREEN, () => require('./screens/SharePlace/SharePlace').default, Provider, store);
     
     Navigation.registerComponentWithRedux(
-        constant.FIND_PLACE_SCREEN, () => require('./screens/FindPlace/FindPlace').default, Provider, store);   
-     
+        constant.FIND_PLACE_SCREEN, () => require('./screens/FindPlace/FindPlace').default, Provider, store);  
+
+   Navigation.registerComponent(
+        constant.PLACE_DETAIL_SCREEN, () => require('./screens/PlaceDetail/PlaceDetail').default);  
 }
