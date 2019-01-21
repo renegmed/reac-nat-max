@@ -5,15 +5,15 @@ import ListItem from "../ListItem/ListItem";
 
 const PlaceList = props => {
      
-    const placesOutput = props.places.map((place, i) => { 
-        return (
-            <ListItem
-              key={i}
-              placeName={place.name}
-              onItemPressed={() => props.onItemDeleted(i)}
-            /> 
-        );
-    });
+    // const placesOutput = props.places.map((place, i) => { 
+    //     return (
+    //         <ListItem
+    //           key={i}
+    //           placeName={place.name}
+    //           onItemPressed={() => props.onItemDeleted(i)}
+    //         /> 
+    //     );
+    // });
     
     return <FlatList 
         style={styles.listContainer}

@@ -7,7 +7,7 @@ export async function pushAuth() {
   
     const auth_image = await Icon.getImageSource("md-log-in", 30);
     const find_place_image = await Icon.getImageSource("md-map", 30);
-    const share_place_image = await Icon.getImageSource("ios-share-alt", 30);
+    const share_place_image = await Icon.getImageSource("ios-share-alt", 30); 
 
     Navigation.setRoot({
         root: {
@@ -24,7 +24,7 @@ export async function pushAuth() {
                                         options: {
                                             topBar: {
                                                 visible: true,
-                                                animate: false,
+                                                animate: true,
                                                 title: {
                                                     text: 'Log-In'
                                                 }
@@ -55,7 +55,7 @@ export async function pushAuth() {
                                         options: { 
                                             topBar: {
                                             visible: true,
-                                            animate: false,
+                                            animate: true,
                                             title: {
                                                 text: 'Find A Place'
                                             }
@@ -80,7 +80,7 @@ export async function pushAuth() {
                                         options: {
                                             topBar: {
                                                 visible: true,
-                                                animate: false,
+                                                animate: true,
                                                 title: {
                                                     text: 'Share A Place!'
                                                 }
@@ -100,44 +100,80 @@ export async function pushAuth() {
                             }
                         }
                     } 
-                ]
+                ],
+                options: {
+                  bottomTabs: {
+                    titleDisplayMode: 'alwaysShow' 
+                  }
+                }
             }
         }
-    });
+    }); 
 }
 
 
 
-export function pushSharePlace() {
-    Navigation.setRoot({
-        root: {
-            stack: {
-                id: 'SHAREPLACE',
-                children: [
-                {
-                    component: {
-                        name: constant.SHARE_PLACE_SCREEN
-                    }
-                }
-                ]
-            }
-        }
-    });
-}
+// export function pushSharePlace() {
+//     Navigation.setRoot({
+//         root: {
+//             stack: {
+//                 id: 'SHAREPLACE',
+//                 children: [
+//                 {
+//                     component: {
+//                         name: constant.SHARE_PLACE_SCREEN
+//                     }
+//                 }
+//                 ]
+//             }
+//         }
+//     });
+// }
 
-export function pushFindPlace() {
+export async function pushFindPlace() {
+
+    const auth_image = await Icon.getImageSource("md-log-in", 30);
+    const find_place_image = await Icon.getImageSource("md-map", 30);
+    const share_place_image = await Icon.getImageSource("ios-share-alt", 30);
+
     Navigation.setRoot({
         root: {
-            stack: {
-                id: 'FINDPLACE',
-                children: [
-                {
-                    component: {
-                        name: constant.FIND_PLACE_SCREEN
-                    }
+            bottomTabs: {
+                id: 'AuthTab',
+                children: [ 
+                    {
+                        stack: {
+                            id: 'FINDPLACE',
+                            children: [
+                                {
+                                    component: {
+                                        name: constant.FIND_PLACE_SCREEN,
+                                        options: { 
+                                            topBar: {
+                                            visible: true,
+                                            animate: true,
+                                            title: {
+                                                text: 'Find A Place'
+                                            }
+                                        }, 
+                                            bottomTab: {
+                                                text: 'Find Place',
+                                                icon: find_place_image,
+                                                selectedIcon: find_place_image, 
+                                            }
+                                        } 
+                                    }
+                                }
+                            ]
+                        }
+                    } 
+                ],
+                options: {
+                  bottomTabs: {
+                    titleDisplayMode: 'alwaysShow' 
+                  }
                 }
-                ]
             }
         }
-    });
+    }); 
 }
