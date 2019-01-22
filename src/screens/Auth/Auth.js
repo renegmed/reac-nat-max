@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {  View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { pushFindPlace } from '../../navigation';
 
+import DefaultInput from "../../components/UI/DefaultInput/DefaultInput";
+
 class Auth extends Component {
  
   loginHandler = () => {
@@ -15,9 +17,9 @@ class Auth extends Component {
             <Text>Please Log In</Text> 
             <Button title="Switch to Login" onPress={this.loginHandler}/>
             <View style={styles.inputContainer}>
-              <TextInput placeholder="Your E-Mail Address" style={styles.input}/>
-              <TextInput placeholder="Password" style={styles.input}/>
-              <TextInput placeholder="Confirm" style={styles.input}/>
+              <DefaultInput placeholder="Your E-Mail Address"/>
+              <DefaultInput placeholder="Password" />
+              <DefaultInput placeholder="Confirm" />
             </View>
             
             <Button title="Submit" onPress={this.loginHandler} style={styles.input}/>
@@ -34,10 +36,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "60%"
-  },
-  input: {
-    width: "100%"
-  }
+  } 
 });
 
 export default Auth;
