@@ -5,6 +5,7 @@ import { pushFindPlace } from '../../navigation';
 
 import DefaultInput from "../../components/UI/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText";
+import MainText from "../../components/UI/MainText";
 class Auth extends Component {
  
   loginHandler = () => {
@@ -13,16 +14,20 @@ class Auth extends Component {
 
   render() {
     return (
-      <View style={styles.container}> 
-            <HeadingText>Please Log In</HeadingText> 
-            <Button title="Switch to Login" onPress={this.loginHandler} />
-            <View style={styles.inputContainer}> 
-              <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
-              <DefaultInput placeholder="Password" style={styles.input}/>
-              <DefaultInput placeholder="Confirm" style={styles.input}/>
-            </View>
+      <View style={styles.container}>
+        <MainText>
+          <HeadingText>Please Log In</HeadingText> 
+        </MainText> 
             
-            <Button title="Submit" onPress={this.loginHandler} style={styles.input}/>
+        <Button title="Switch to Login" onPress={this.loginHandler} />
+        <View style={styles.inputContainer}> 
+          <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
+          <DefaultInput placeholder="Password" style={styles.input}/>
+          <DefaultInput placeholder="Confirm" style={styles.input}/>
+        </View>
+        
+        <Button title="Submit" onPress={this.loginHandler} style={styles.input}/>
+      
       </View>
     );
   }
