@@ -8,9 +8,19 @@ export async function pushAuth() {
     const auth_image = await Icon.getImageSource("md-log-in", 30);
     const find_place_image = await Icon.getImageSource("md-map", 30);
     const share_place_image = await Icon.getImageSource("ios-share-alt", 30); 
-
+    const menu_image = await Icon.getImageSource("ios-menu", 30); 
     Navigation.setRoot({
         root: {
+        sideMenu: {
+            left: {
+                component: {
+                    name: constant.SIDE_DRAWER_SCREEN,
+                    passProps: {
+                        side: 'left'
+                    }
+                }
+            },
+            center: {
             bottomTabs: {
                 id: 'AuthTab',
                 children: [
@@ -58,7 +68,14 @@ export async function pushAuth() {
                                             animate: true,
                                             title: {
                                                 text: 'Find A Place'
-                                            }
+                                            },
+                                            leftButtons: [
+                                                {
+                                                    id: 'sideDrawerToggle',
+                                                    icon: menu_image,
+                                                    color: 'green'
+                                                }
+                                            ]
                                         }, 
                                             bottomTab: {
                                                 text: 'Find Place',
@@ -80,10 +97,17 @@ export async function pushAuth() {
                                         options: {
                                             topBar: {
                                                 visible: true,
-                                                animate: true,
+                                                animate: false,
                                                 title: {
                                                     text: 'Share A Place!'
-                                                }
+                                                },
+                                                leftButtons: [
+                                                    {
+                                                        id: 'sideDrawerToggle',
+                                                        icon: menu_image,
+                                                        color: 'red'
+                                                    }
+                                                ]
                                             },
                                             bottomTab: {
                                                 text: 'Share Place',
@@ -91,11 +115,11 @@ export async function pushAuth() {
                                             }
                                         }
                                     }
-                                }
+                                } 
                             ],
                             options: {
                               topBar: {
-                                visible: false
+                                visible: true
                               }
                             }
                         }
@@ -107,73 +131,9 @@ export async function pushAuth() {
                   }
                 }
             }
+            } // center
         }
+        }  // sideMenu
     }); 
-}
-
-
-
-// export function pushSharePlace() {
-//     Navigation.setRoot({
-//         root: {
-//             stack: {
-//                 id: 'SHAREPLACE',
-//                 children: [
-//                 {
-//                     component: {
-//                         name: constant.SHARE_PLACE_SCREEN
-//                     }
-//                 }
-//                 ]
-//             }
-//         }
-//     });
-// }
-
-export async function pushFindPlace() {
-
-    const auth_image = await Icon.getImageSource("md-log-in", 30);
-    const find_place_image = await Icon.getImageSource("md-map", 30);
-    const share_place_image = await Icon.getImageSource("ios-share-alt", 30);
-
-    Navigation.setRoot({
-        root: {
-            bottomTabs: {
-                id: 'AuthTab',
-                children: [ 
-                    {
-                        stack: {
-                            id: 'FINDPLACE',
-                            children: [
-                                {
-                                    component: {
-                                        name: constant.FIND_PLACE_SCREEN,
-                                        options: { 
-                                            topBar: {
-                                            visible: true,
-                                            animate: true,
-                                            title: {
-                                                text: 'Find A Place'
-                                            }
-                                        }, 
-                                            bottomTab: {
-                                                text: 'Find Place',
-                                                icon: find_place_image,
-                                                selectedIcon: find_place_image, 
-                                            }
-                                        } 
-                                    }
-                                }
-                            ]
-                        }
-                    } 
-                ],
-                options: {
-                  bottomTabs: {
-                    titleDisplayMode: 'alwaysShow' 
-                  }
-                }
-            }
-        }
-    }); 
-}
+} 
+ 

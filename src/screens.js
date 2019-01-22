@@ -17,6 +17,9 @@ export function registerScreens() {
     Navigation.registerComponentWithRedux(
         constant.FIND_PLACE_SCREEN, () => require('./screens/FindPlace/FindPlace').default, Provider, store);  
 
-   Navigation.registerComponentWithRedux(
+    Navigation.registerComponentWithRedux(
         constant.PLACE_DETAIL_SCREEN, () => require('./screens/PlaceDetail/PlaceDetail').default, Provider, store);  
+
+    Navigation.registerComponentWithRedux(
+        constant.SIDE_DRAWER_SCREEN, () => require('./screens/SideDrawer/SideDrawer').default, Provider, store);      
 }

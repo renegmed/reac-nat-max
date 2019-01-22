@@ -5,14 +5,41 @@ import { connect } from 'react-redux';
 
 import PlaceList from '../../components/PlaceList/PlaceList'; 
 import constant from '../../constants'; 
+
 class FindPlace extends Component {   
+    
+    componentDidMount() {
+        this.navigationEventListener = Navigation.events().bindComponent(this);
+    }
+    
+    componentWillUnmount() {
+        // Not mandatory
+        if (this.navigationEventListener) {
+          this.navigationEventListener.remove();
+        }
+    }
+    
+    navigationButtonPressed({ buttonId }) { 
+        switch(buttonId) {
+            case 'sideDrawerToggle':             
+                Navigation.mergeOptions(this.props.componentId, {
+                    sideMenu: {
+                        left: {
+                            visible: true
+                        }
+                    }
+                });
+                break;
+            default:
+                break;     
+        } 
+    }
 
     itemSelectedHandler = key => { 
         const selPlace = this.props.places.find( place => {
             return place.key === key;
         });
- 
-
+  
         Navigation.push(this.props.componentId, {
             component: {
                 name: constant.PLACE_DETAIL_SCREEN,
