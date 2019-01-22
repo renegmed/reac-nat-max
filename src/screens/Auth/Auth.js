@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import {  View, Text, Button, StyleSheet } from 'react-native';
+import {  View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { pushFindPlace } from '../../navigation';
 
 class Auth extends Component {
@@ -11,19 +11,23 @@ class Auth extends Component {
 
   render() {
     return (
-      <View style={styles.flex}> 
-            <Text>Auth Screen</Text> 
-            <Button title="Login" onPress={this.loginHandler} />
+      <View style={styles.container}> 
+            <Text>Please Log In</Text> 
+            <Button title="Switch to Login" onPress={this.loginHandler}/>
+            <TextInput placeholder="Your E-Mail Address"/>
+            <TextInput placeholder="Password" />
+            <TextInput placeholder="Confirm" />
+            <Button title="Submit" onPress={this.loginHandler} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+  container: { 
+     flex: 1,
+     justifyContent: 'center',
+     alignItems: 'center'
   }
 });
 
