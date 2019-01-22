@@ -1,11 +1,13 @@
 
 import React, { Component } from 'react';
-import {  View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {  View, ImageBackground, Button, StyleSheet } from 'react-native';
 import { pushFindPlace } from '../../navigation';
 
 import DefaultInput from "../../components/UI/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText";
 import MainText from "../../components/UI/MainText";
+import backgroundImage from "../../assets/background.jpg";
+
 class Auth extends Component {
  
   loginHandler = () => {
@@ -14,21 +16,27 @@ class Auth extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <MainText>
-          <HeadingText>Please Log In</HeadingText> 
-        </MainText> 
-            
-        <Button title="Switch to Login" onPress={this.loginHandler} />
-        <View style={styles.inputContainer}> 
-          <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
-          <DefaultInput placeholder="Password" style={styles.input}/>
-          <DefaultInput placeholder="Confirm" style={styles.input}/>
+      <ImageBackground 
+          source={backgroundImage}
+          style={styles.backgroundImage}
+      >
+        <View style={styles.container}>
+
+          <MainText>
+            <HeadingText>Please Log In</HeadingText> 
+          </MainText> 
+
+          <Button title="Switch to Login" onPress={this.loginHandler} />
+          <View style={styles.inputContainer}> 
+            <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
+            <DefaultInput placeholder="Password" style={styles.input}/>
+            <DefaultInput placeholder="Confirm" style={styles.input}/>
+          </View>
+
+          <Button title="Submit" onPress={this.loginHandler} />
+
         </View>
-        
-        <Button title="Submit" onPress={this.loginHandler} style={styles.input}/>
-      
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -44,8 +52,11 @@ const styles = StyleSheet.create({
   }, 
   input: {
     backgroundColor: "#eee",
-    borderColor: "#bbb"
-
+    borderColor: "#bbb" 
+  },
+  backgroundImage: {
+    width: "100%",
+    flex: 1
   } 
 });
 
