@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import {  View, ImageBackground, Button, StyleSheet } from 'react-native';
+import {  View, ImageBackground, Button, StyleSheet, Dimensions } from 'react-native';
 import { pushFindPlace } from '../../navigation';
 
 import DefaultInput from "../../components/UI/DefaultInput";
@@ -17,6 +17,14 @@ class Auth extends Component {
   }
 
   render() {
+    let headingText = null;
+    if (Dimensions.get('window').height > 500) {
+      headingText = ( 
+          <MainText>
+            <HeadingText>Please Log In</HeadingText> 
+          </MainText> 
+      );
+    }
     return (
       <ImageBackground 
           source={backgroundImage}
@@ -24,15 +32,20 @@ class Auth extends Component {
       >
         <View style={styles.container}>
 
-          <MainText>
-            <HeadingText>Please Log In</HeadingText> 
-          </MainText> 
+          {headingText}
 
           <ButtonWithBackground onPress={this.loginHandler} color="#29aaf4">Switch to Login</ButtonWithBackground>
           <View style={styles.inputContainer}> 
             <DefaultInput placeholder="Your E-Mail Address" style={styles.input}/>
-            <DefaultInput placeholder="Password" style={styles.input}/>
-            <DefaultInput placeholder="Confirm" style={styles.input}/>
+            <View style={styles.passwordContainer}>
+              <View style={styles.passwordWrapper}>
+                <DefaultInput placeholder="Password" style={styles.input}/>
+              </View> 
+              <View style={styles.passwordWrapper}>
+                <DefaultInput placeholder="Confirm" style={styles.input}/>
+              </View> 
+            </View>
+            
           </View> 
  
           <ButtonWithBackground onPress={this.loginHandler} color="#29aaf4">Submit</ButtonWithBackground>
@@ -59,6 +72,13 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     flex: 1
+  },
+  passwordContainer: {
+    flexDirection: Dimensions.get('window').height > 500? "column" : "row",
+    justifyContent: "space-between"
+  },
+  passwordWrapper: {
+    width: "45%"
   } 
 });
 
