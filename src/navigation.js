@@ -1,4 +1,4 @@
- 
+import { Platform } from 'react-native'; 
 import { Navigation } from 'react-native-navigation';  
 import constant from './constants';  
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,9 +6,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export async function pushAuth() {
   
     const auth_image = await Icon.getImageSource("md-log-in", 30);
-    const find_place_image = await Icon.getImageSource("md-map", 30);
-    const share_place_image = await Icon.getImageSource("ios-share-alt", 30); 
-    const menu_image = await Icon.getImageSource("ios-menu", 30); 
+    const find_place_image = 
+        await Icon.getImageSource(Platform.OS === 'android' ? "md-map" : "ios-map", 30);
+    const share_place_image = 
+        await Icon.getImageSource(Platform.OS === 'android' ? "md-share-alt" : "ios-share-alt", 30); 
+    const menu_image = 
+        await Icon.getImageSource(Platform.OS === 'android' ? "md-menu" : "ios-menu", 30); 
     Navigation.setRoot({
         root: {
         sideMenu: {
