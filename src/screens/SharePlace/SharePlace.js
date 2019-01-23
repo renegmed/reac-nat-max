@@ -5,10 +5,11 @@ import { Navigation } from 'react-native-navigation';
 
  
 import { addPlace } from '../../store/actions/index';  
-import DefaultInput from '../../components/UI/DefaultInput';
+import PlaceInput from "../../components/PlaceInput/PlaceInput";
 import MainText from '../../components/UI/MainText';
 import HeadingText from '../../components/UI/HeadingText';
-import imagePlaceholder from '../../assets/beautiful-place.jpg';
+import PickImage from '../../components/PickImage/PickImage'; 
+import PickLocation from '../../components/PickLocation/PickLocation'; 
 
 class SharePlace extends Component { 
  
@@ -50,25 +51,17 @@ class SharePlace extends Component {
                     <MainText>
                         <HeadingText>Share a Place with us!</HeadingText>
                     </MainText>
-                     
-                    <View style={styles.placeholder}>
-                       <Image source={imagePlaceholder} style={styles.previewImage} />
-                    </View> 
-                    <View style={styles.button}>
-                        <Button title="Pick Image" />
-                    </View>
+                   
+                    <PickImage />
+
+                    <PickLocation />
                     
-                    <View style={styles.placeholder}>
-                        <Text>Map</Text>
-                    </View> 
-                    <View style={styles.button}>
-                        <Button title="Locate Me" />
-                    </View>
-                    
-                    <DefaultInput placeholder="Place Name" />
+                    <PlaceInput />
 
                     <View style={styles.button}>
-                        <Button title="Share the Place!" /> 
+                        <Button title="Share the Place!" 
+                            onPress={ () => alert('Share the Place!')}
+                        /> 
                     </View>
                     
                 </View>  
