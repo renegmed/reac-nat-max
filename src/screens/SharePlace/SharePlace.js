@@ -13,6 +13,10 @@ import PickLocation from '../../components/PickLocation/PickLocation';
 
 class SharePlace extends Component { 
  
+    state = {
+        placeName: ""
+    };
+
     componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
     }
@@ -40,8 +44,19 @@ class SharePlace extends Component {
         } 
     }
 
-    placeAddedHandler = placeName => {
-        this.props.onAddPlace(placeName);   
+    placeNameChangedHandler = val => {
+        this.setState({
+            placeName: val
+        })
+    }
+
+    placeAddedHandler = async () => {
+        if (this.state.placeName.trim() !== "") {
+            await this.props.onAddPlace(this.state.placeName);
+            this.setState({
+                placeName: ""
+            })
+        }        
     }
     
     render() {
@@ -56,11 +71,12 @@ class SharePlace extends Component {
 
                     <PickLocation />
                     
-                    <PlaceInput />
+                    <PlaceInput placeName={this.state.placeName}
+                        onChangeText={this.placeNameChangedHandler} />
 
                     <View style={styles.button}>
                         <Button title="Share the Place!" 
-                            onPress={ () => alert('Share the Place!')}
+                            onPress={this.placeAddedHandler}
                         /> 
                     </View>
                     
