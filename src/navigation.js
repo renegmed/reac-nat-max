@@ -45,7 +45,11 @@ export async function pushAuth() {
                                             bottomTab: {
                                                 text: 'Login',
                                                 icon: auth_image,
-                                                selectedIcon: auth_image,
+                                                selectedIcon: auth_image, 
+                                                iconColor: 'red',
+                                                selectedIconColor: 'blue',
+                                                textColor: 'red',
+                                                selectedTextColor: 'blue',
                                             }
                                         }
                                     }
@@ -82,7 +86,11 @@ export async function pushAuth() {
                                         }, 
                                             bottomTab: {
                                                 text: 'Find Place',
-                                                icon: find_place_image 
+                                                icon: find_place_image, 
+                                                iconColor: 'red',
+                                                selectedIconColor: 'blue',
+                                                textColor: 'red',
+                                                selectedTextColor: 'blue', 
                                             }
                                         } 
                                     }
@@ -102,7 +110,7 @@ export async function pushAuth() {
                                                 visible: true,
                                                 animate: false,
                                                 title: {
-                                                    text: 'Share A Place!'
+                                                    text: 'Share A Place!'  
                                                 },
                                                 leftButtons: [
                                                     {
@@ -114,7 +122,11 @@ export async function pushAuth() {
                                             },
                                             bottomTab: {
                                                 text: 'Share Place',
+                                                textColor: 'red',
                                                 icon: share_place_image, 
+                                                iconColor: 'red',
+                                                selectedIconColor: 'lightblue', 
+                                                selectedTextColor: 'lightblue',
                                             }
                                         }
                                     }
