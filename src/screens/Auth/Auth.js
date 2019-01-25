@@ -8,6 +8,8 @@ import HeadingText from "../../components/UI/HeadingText";
 import MainText from "../../components/UI/MainText";
 import backgroundImage from "../../assets/background.jpg";
 import ButtonWithBackground from "../../components/UI/ButtonWithBackground";
+import valid from "../../utility/validation";
+import validate from '../../utility/validation';
 
 class Auth extends Component {
  
@@ -58,14 +60,47 @@ class Auth extends Component {
   }
 
   updateInputState = (key, value) => {
+    let connectedValue = {};
+
+    if (this.state.controls[key].validationRules.equalTo) {  // if defined equalTo validation rules
+      const equalControl = this.state.controls[key].validationRules.equalTo;  // 'password'
+      const equalValue = this.state.controls[equalControl].value;  // current value of field 'password'
+
+      connectedValue = {
+        ...connectedValue,
+        equalTo: equalValue
+      }
+    }
+    if (key === "password") {
+      connectedValue = {
+        ...connectedValue,
+        equalTo: value
+      }
+    }
     this.setState(prevState => {
       return {
         controls: {
           ...prevState.controls,
+          confirmPassword: {
+            ...prevState.controls.confirmPassword,
+            valid:
+              key === "password" 
+                ? validate(
+                    prevState.controls.confirmPassword.value,
+                    prevState.controls.confirmPassword.validationRules, // 'password'
+                    connectedValue      // representing the password field value 
+                )
+                : prevState.controls.confirmPassword.valid
+          },
           [key]: {
             ...prevState.controls[key],
-            value: value
-          }
+            value: value,
+            valid: validate( 
+                value,
+                prevState.controls[key].validationRules,  
+                connectedValue       
+            )
+          } 
         }
       }
     })
