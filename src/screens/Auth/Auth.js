@@ -1,15 +1,17 @@
 
 import React, { Component } from 'react';
-import {  View, ImageBackground, Button, StyleSheet, Dimensions } from 'react-native';
-import { pushFindPlace } from '../../navigation';
+import {  View, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import { Navigation} from 'react-native-navigation';
 
 import DefaultInput from "../../components/UI/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText";
 import MainText from "../../components/UI/MainText";
 import backgroundImage from "../../assets/background.jpg";
-import ButtonWithBackground from "../../components/UI/ButtonWithBackground";
-import valid from "../../utility/validation";
+import ButtonWithBackground from "../../components/UI/ButtonWithBackground"; 
 import validate from '../../utility/validation';
+import { tryAuth } from "../../store/actions/index";
+import { findPlaces } from "../../navigation";
 
 class Auth extends Component {
  
@@ -58,8 +60,13 @@ class Auth extends Component {
     }); 
   }
   loginHandler = () => {
-    //pushFindPlace();
-    alert('Auth login handler')
+     const authData = {
+       email: this.state.controls.email.value,
+       password: this.state.controls.password.value
+     };
+     this.props.onLogin(authData);
+     findPlaces();
+     
   }
 
   updateInputState = (key, value) => {
@@ -209,5 +216,9 @@ const styles = StyleSheet.create({
     width: "100%"
   }  
 });
-
-export default Auth;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: (authData) => dispatch(tryAuth(authData))
+  }
+}
+export default connect(null, mapDispatchToProps) (Auth);
