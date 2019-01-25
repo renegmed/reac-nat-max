@@ -21,21 +21,24 @@ class Auth extends Component {
         valid: false,
         validationRules: {
           isEmail: true
-        }
+        },
+        touched: false
       },
       password: {
         value: "",
         valid: false,
         validationRules: {
           minLength: 6
-        }
+        },
+        touched: false
       },
       confirmPassword: {
         value: "",
         valid: false,
         validationRules: {
           equalTo: 'password'
-        }
+        },
+        touched: false
       }
     }
   }
@@ -99,7 +102,8 @@ class Auth extends Component {
                 value,
                 prevState.controls[key].validationRules,  
                 connectedValue       
-            )
+            ),
+            touched: true
           } 
         }
       }
@@ -132,6 +136,8 @@ class Auth extends Component {
               style={styles.input}
               value={this.state.controls.email.value}
               onChangeText = { (val) => this.updateInputState("email",val)}
+              valid={this.state.controls.email.valid}
+              touched={this.state.controls.email.touched}
             />
             
             <View style={this.state.viewMode === "portrait" ? styles.portraitPasswordContainer : styles.landscapePasswordContainer }>
@@ -141,6 +147,8 @@ class Auth extends Component {
                   style={styles.input}
                   value={this.state.controls.password.value}
                   onChangeText={ (val) => this.updateInputState("password", val)}
+                  valid={this.state.controls.password.valid}
+                  touched={this.state.controls.password.touched}
                 />
               </View> 
               <View style={this.state.viewMode === "portrait" ? styles.portraitPasswordWrapper : styles.landscapePasswordWrapper}>
@@ -149,13 +157,19 @@ class Auth extends Component {
                   style={styles.input}
                   value={this.state.controls.confirmPassword.value}
                   onChangeText={ (val) => this.updateInputState("confirmPassword", val)}
+                  valid={this.state.controls.confirmPassword.valid} 
+                  touched={this.state.controls.confirmPassword.touched}
                 />
               </View> 
             </View>
             
           </View> 
  
-          <ButtonWithBackground onPress={this.loginHandler} color="#29aaf4">Submit</ButtonWithBackground>
+          <ButtonWithBackground 
+            onPress={this.loginHandler} 
+            color="#29aaf4"
+            disabled={!this.state.controls.email.valid || !this.state.controls.password.valid || !this.state.controls.confirmPassword.valid}
+          >Submit</ButtonWithBackground>
 
         </View>
       </ImageBackground>
