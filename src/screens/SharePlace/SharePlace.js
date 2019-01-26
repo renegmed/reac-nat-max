@@ -10,12 +10,37 @@ import MainText from '../../components/UI/MainText';
 import HeadingText from '../../components/UI/HeadingText';
 import PickImage from '../../components/PickImage/PickImage'; 
 import PickLocation from '../../components/PickLocation/PickLocation'; 
+import validate from "../../utility/validation";
 
 class SharePlace extends Component { 
  
     state = {
-        placeName: ""
+        controls: {
+            placeName: {
+                value: "",
+                valid: false,
+                touched: false,
+                validationRules: {
+                    notEmpty: true
+                }
+            }
+        } 
     };
+
+    // constructor(props) {
+    //     super(props);
+    //     this.props.navigator.setOnNavigationEvent(this.onNavigationEvent);        
+    // }
+
+    // onNavigatorEvent = event => {
+    //     if (event.type === "NavBarButtonPress") {
+    //         if (event.id === "sideDrawerToggle") {
+    //             this.props.navigator.toggleDrawer({
+    //                 side: "left"
+    //             })
+    //         }
+    //     }
+    // }
 
     componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
@@ -45,16 +70,36 @@ class SharePlace extends Component {
     }
 
     placeNameChangedHandler = val => {
-        this.setState({
-            placeName: val
+        this.setState(prevState => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    placeName: {
+                        ...prevState.controls.placeName,
+                        value: val,
+                        valid: validate(val, prevState.controls.placeName.validationRules),
+                        touched: true
+                    }
+                }
+            }  
         })
     }
 
     placeAddedHandler = async () => {
-        if (this.state.placeName.trim() !== "") {
-            await this.props.onAddPlace(this.state.placeName);
-            this.setState({
-                placeName: ""
+        if (this.state.controls.placeName.value.trim() !== "") {
+            await this.props.onAddPlace(this.state.controls.placeName.value);
+            this.setState(prevState => {
+                return {
+                    controls: {
+                        ...prevState.controls,
+                        placeName: {
+                            ...prevState.controls.placeName,
+                            value: "",
+                            valid: false,
+                            touched: false
+                        }
+                    }
+                }
             })
         }        
     }
@@ -71,12 +116,14 @@ class SharePlace extends Component {
 
                     <PickLocation />
                     
-                    <PlaceInput placeName={this.state.placeName}
+                    <PlaceInput 
+                        placeData={this.state.controls.placeName}
                         onChangeText={this.placeNameChangedHandler} />
 
                     <View style={styles.button}>
                         <Button title="Share the Place!" 
                             onPress={this.placeAddedHandler}
+                            disabled={!this.state.controls.placeName.valid}
                         /> 
                     </View>
                     

@@ -10,8 +10,24 @@ class FindPlace extends Component {
     
     state = {
         placesLoaded: false,
-        removeAnim: new Animated.Value(1)
+        removeAnim: new Animated.Value(1),
+        placesAnim: new Animated.Value(0)
     }
+
+    // constructor(props) {
+    //     super(props);
+    //     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    // }
+
+    // onNavigatorEvent = event => {
+    //     if (event.type === "NavBarButtonPress") {
+    //         if (event.id === "sideDrawerToggle") {
+    //             this.props.navigator.toggleDrawer({
+    //             side: "left"
+    //         });
+    //     }
+    //   }
+    // };
 
     componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
@@ -62,13 +78,27 @@ class FindPlace extends Component {
         });
     }
 
+    placesLoadedHandler = () => {
+        Animated.timing(this.state.placesAnim, {
+            toValue: 1,
+            duration: 500,
+            userNativeDriver: true
+        }).start();
+    }
+
     placesSearchHandler = () => {
        Animated.timing(this.state.removeAnim, {
             toValue: 0,
             duration: 500,
             userNativeDriver: true
-        }).start();
+        }).start(() => {
+            this.setState({
+                placesLoaded: true
+            });
+            this.placesLoadedHandler();
+        });
     }
+
     render() { 
         let content = (
             <Animated.View
@@ -85,7 +115,7 @@ class FindPlace extends Component {
                 }}    >
                 <TouchableOpacity onPress={ this.placesSearchHandler }>
                     <View style={styles.searchButton} >
-                        <Text style={styles.searchButtonText}>Find Place</Text>
+                        <Text style={styles.searchButtonText}>Find Places</Text>
                     </View>
                 </TouchableOpacity>
             </Animated.View>
@@ -94,9 +124,15 @@ class FindPlace extends Component {
         
         if (this.state.placesLoaded) {
             content = (
-                <PlaceList 
-                    places={this.props.places} 
-                    onItemSelected={this.itemSelectedHandler} />
+                <Animated.View 
+                    style={{
+                        opacity: this.state.placesAnim
+                    }}    
+                >
+                    <PlaceList 
+                        places={this.props.places} 
+                        onItemSelected={this.itemSelectedHandler} />
+                </Animated.View> 
             );
         }
 
@@ -112,9 +148,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
-    },
-    listContainer: {
-
     },
     searchButton: {
         borderColor: 'orange',
