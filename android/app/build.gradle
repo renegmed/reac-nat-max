@@ -158,6 +158,7 @@ configurations.all {
     }
 }
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}" 
@@ -169,7 +170,8 @@ dependencies {
        exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
     implementation 'com.google.android.gms:play-services-base:10.0.1'
-    implementation 'com.google.android.gms:play-services-maps:10.0.1'
+    implementation 'com.google.android.gms:play-services-maps:10.0.1'  
+    implementation project(':react-native-image-picker') 
     
 }
 
