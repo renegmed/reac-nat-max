@@ -1,13 +1,13 @@
 const functions = require('firebase-functions');
-const cors  = require('cors').toString({origin: true});
+const cors  = require('cors')({origin: true});
 const fs = require("fs");
-const UUID = require("uuid-v4")
-const gcconfig = {
-    projectId: "awesome-places-215c1",
-    kyFilename: "awesome-places-key.json"
-}
-const gcs = require("@google-cloud/storage")(gcconfig);
+const UUID = require("uuid-v4"); 
 
+const {Storage} = require('@google-cloud/storage');
+const gcs =  new Storage({
+   projectId: 'awesome-places-215c1',
+   keyFilename: 'awesome-places-key.json'
+});
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
@@ -24,12 +24,25 @@ exports.storeImage = functions.https.onRequest((request, response) => {
             uploadType: "media",
             destination: "/places/" + uuid + ".jpg",
             metadata: {
-                contentType: "image/jpeg",
-                firebaseStorageDownloadTokens: uuid
+                metadata: {
+                    contentType: "image/jpeg",
+                    firebaseStorageDownloadTokens: uuid
+                } 
             }
-        });
-
-    })
-
-    response.send("Hello from Firebase!");
+        }, (err, file ) => {
+            if (!err) {
+                response.status(201).json({
+                    imageUrl: "https://firebasestorage.googleapis.com/v0/b/" +
+                        bucket.name + 
+                        "/o/" +
+                        encodeURIComponent(file.name) +
+                        "?alt=media&token=" +
+                        uuid 
+                })
+            } else {
+                console.log(err);
+                response.status(500).json({error: err})
+            }
+        }); 
+    }); 
 });

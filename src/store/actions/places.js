@@ -7,15 +7,27 @@ export const addPlace = (placeName, location, image) => {
             name: placeName,
             location: location
         }
-        fetch("https://awesome-places-215c1.firebaseio.com/places.json",{
+        fetch("https://us-central1-awesome-places-215c1.cloudfunctions.net/storeImage", {
             method: "POST",
-            body: JSON.stringify(placeData)
+            body: JSON.stringify({
+                image: image.base64
+            })
         })
         .catch( err => console.log(err))  // VERY IMPORTANT: catch() will only catch failed network requests. It will NOT catch 4xx and 5xx error codes!
         .then(res => res.json())
         .then(parsedRes => {
             console.log(parsedRes);
         });
+            
+        // fetch("https://awesome-places-215c1.firebaseio.com/places.json",{
+        //     method: "POST",
+        //     body: JSON.stringify(placeData)
+        // })
+        // .catch( err => console.log(err))  // VERY IMPORTANT: catch() will only catch failed network requests. It will NOT catch 4xx and 5xx error codes!
+        // .then(res => res.json())
+        // .then(parsedRes => {
+        //     console.log(parsedRes);
+        // });
     }
 }
 
