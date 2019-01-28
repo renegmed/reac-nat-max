@@ -31,7 +31,7 @@ class FindPlace extends Component {
     // };
 
     componentDidMount() {
-        // this.navigationEventListener = Navigation.events().bindComponent(this);
+        this.navigationEventListener = Navigation.events().bindComponent(this); // needed for navigationButtonPressed
         this.props.onLoadPlaces();
     }
       
@@ -40,6 +40,7 @@ class FindPlace extends Component {
         if (this.navigationEventListener) {
           this.navigationEventListener.remove();
         }
+        // Navigation.dismissModal(this.props.componentId);
     }
     
     navigationButtonPressed({ buttonId }) { 
@@ -63,6 +64,27 @@ class FindPlace extends Component {
             return place.key === key;
         });
   
+
+        // Navigation.showModal({
+        //     stack: {
+        //       children: [{
+        //         component: {
+        //           name: constant.PLACE_DETAIL_SCREEN,
+        //           passProps: {
+        //             selectedPlace: selPlace
+        //           },
+        //           options: {
+        //             topBar: {
+        //               title: {
+        //                 text: selPlace.name
+        //               }
+        //             }
+        //           }
+        //         }
+        //       }]
+        //     }
+        // });
+
         Navigation.push(this.props.componentId, {
             component: {
                 name: constant.PLACE_DETAIL_SCREEN,
@@ -73,7 +95,7 @@ class FindPlace extends Component {
             options: {
                 topBar: {
                     title: {
-                        text: selPlace 
+                        text: selPlace.name
                     }
                 }
             }  

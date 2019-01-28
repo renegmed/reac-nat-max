@@ -121,9 +121,9 @@ class SharePlace extends Component {
             
         })
     }
-    placeAddedHandler =  () => {
+    placeAddedHandler = async () => {
        
-        this.props.onAddPlace(
+        await this.props.onAddPlace(
             this.state.controls.placeName.value,
             this.state.controls.location.value,
             this.state.controls.image.value

@@ -9,7 +9,7 @@ import { deletePlace } from '../../store/actions/index'
 class PlaceDetail extends Component { 
 
     placeDeletedHandler = () => {
-        this.props.onDeletePlace(this.props.selectedPlace.key);
+        this.props.onDeletePlace(this.props.selectedPlace);
         Navigation.pop(this.props.componentId)
     }
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onDeletePlace: (key) => dispatch(deletePlace(key))
+        onDeletePlace: (place) => dispatch(deletePlace(place))
     }
 }
 export default connect(null, mapDispatchToProps)(PlaceDetail);
