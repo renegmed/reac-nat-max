@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button, StyleSheet,ScrollView} from 'react-native';
+import { View, Text, Image, Button, StyleSheet,ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 
@@ -121,14 +121,14 @@ class SharePlace extends Component {
             
         })
     }
-    placeAddedHandler = async () => {
+    placeAddedHandler =  () => {
        
-        await this.props.onAddPlace(
+        this.props.onAddPlace(
             this.state.controls.placeName.value,
             this.state.controls.location.value,
             this.state.controls.image.value
         );
-        
+         
         this.setState(prevState => {
             return {
                 controls: {
@@ -146,6 +146,21 @@ class SharePlace extends Component {
     }
     
     render() {
+        let submitButton = ( 
+            <Button title="Share the Place!" 
+                onPress={this.placeAddedHandler}
+                disabled={
+                    !this.state.controls.placeName.valid || 
+                    !this.state.controls.location.valid ||
+                    !this.state.controls.image.valid 
+                }
+            />  
+            
+        );
+  
+        if (this.props.isLoading) {
+            submitButton = <ActivityIndicator size="large" color="#0000ff" />;
+        }
         return (
             <ScrollView >
                 <View style={styles.container}>
@@ -162,14 +177,7 @@ class SharePlace extends Component {
                         onChangeText={this.placeNameChangedHandler} />
 
                     <View style={styles.button}>
-                        <Button title="Share the Place!" 
-                            onPress={this.placeAddedHandler}
-                            disabled={
-                                !this.state.controls.placeName.valid || 
-                                !this.state.controls.location.valid ||
-                                !this.state.controls.image.valid 
-                            }
-                        /> 
+                         {submitButton}
                     </View>
                     
                 </View>  
@@ -199,10 +207,16 @@ const styles = StyleSheet.create({
         height: "100%"
     }
 })
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.ui.isLoading
+    }
+}
 const mapDispatchToProps = dispatch => {
     return {
         onAddPlace: (placeName, location, image) => dispatch(addPlace(placeName, location, image))
     }
 }
 
-export default connect(null, mapDispatchToProps)(SharePlace);
+export default connect(mapStateToProps, mapDispatchToProps)(SharePlace);

@@ -70,10 +70,10 @@ class PickLocation extends Component {
                     ref={ref => this.map = ref}
                 >{marker}</MapView>
 
-                <View style={styles.button}>
+                <View style={styles.button}> 
                     <Button 
                         title="Locate Me" 
-                        onPress={ this.getLocationHandler}/>
+                        onPress={ this.getLocationHandler}/> 
                 </View>
             </View> 
         );
