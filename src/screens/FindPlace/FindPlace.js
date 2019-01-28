@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import PlaceList from '../../components/PlaceList/PlaceList'; 
 import constant from '../../constants'; 
+import { getPlaces } from "../../store/actions/index";
 
 class FindPlace extends Component {   
     
@@ -30,9 +31,10 @@ class FindPlace extends Component {
     // };
 
     componentDidMount() {
-        this.navigationEventListener = Navigation.events().bindComponent(this);
+        // this.navigationEventListener = Navigation.events().bindComponent(this);
+        this.props.onLoadPlaces();
     }
-    
+      
     componentWillUnmount() {
         // Not mandatory
         if (this.navigationEventListener) {
@@ -99,7 +101,7 @@ class FindPlace extends Component {
         });
     }
 
-    render() { 
+    render() {  
         let content = (
             <Animated.View
                 style={{
@@ -166,4 +168,9 @@ const mapStateToProps = state => {
         places: state.places.places
     }
 }
-export default connect(mapStateToProps)(FindPlace);
+const mapDispatchToProps = dispatch => {
+    return {
+        onLoadPlaces: () => dispatch(getPlaces())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FindPlace);
